@@ -2,6 +2,7 @@
 import StatBlock from '../components/StatBlock.svelte';
 import Heading from '../components/Heading.svelte';
 import PropertyLine from	'../components/PropertyLine.svelte';
+import PropertyBlock from	'../components/PropertyBlock.svelte';
 import TopStats from	'../components/TopStats.svelte';
 import Abilities from	'../components/Abilities.svelte';
 
@@ -89,6 +90,12 @@ import Abilities from	'../components/Abilities.svelte';
   ],
   "url": "/api/monsters/goblin"
 }
+const arrayify = (obj) => {
+	return Object.entries(obj)
+}
+let proficiencies = arrayify(creature.proficiencies);
+let senses = arrayify(creature.senses);
+let special = arrayify(creature.special_abilities);
 
 const abils = {
 	str: creature.strength,
@@ -104,9 +111,9 @@ const abils = {
 	<title>Basic Character Block</title>
 </svelte:head>
 
-<button on:click="{handleClick}">
+<!-- <button on:click="{handleClick}">
   Click to grab Goblin
-</button>
+</button> -->
 
 {#await promise}
 <!-- optionally show something while promise is pending -->
@@ -134,7 +141,53 @@ const abils = {
 	<Abilities {...abils}>
 
 	</Abilities>
+	{#if creature.senses}
+		{#each senses as sense , i}
+			<PropertyLine>
+			<span slot="prop">{sense[i, 0]}</span>
+			<span slot="val">{sense[i, 1]}</span>
+		</PropertyLine>
+		{/each}
+	{/if}
+	{#if creature.proficiencies}
+		{#each creature.proficiencies as skill}
+			<PropertyLine>
+			<span slot="prop">{skill.name}</span>
+			<span slot="val">{skill.value}</span>
+		</PropertyLine>
+		{/each}
+	{/if}
+	<PropertyLine>
+			<span slot="prop">Languages</span>
+			<span slot="val">{creature.languages}</span>
+		</PropertyLine>
+			<PropertyLine>
+			<span slot="prop">Challenge</span>
+			<span slot="val">{creature.challenge_rating}</span>
+		</PropertyLine>
 </TopStats>
+
+{#if creature.special_abilities}
+{#each creature.special_abilities as ability}
+	<PropertyBlock>
+			<span slot="title">{ability.name}</span>
+				<span slot="info">{ability.desc}</span>
+	</PropertyBlock>
+	{/each}
+{/if}
+<h3>Actions</h3>
+{#if creature.actions}
+{#each creature.actions as action}
+	<PropertyBlock>
+			<span slot="title">{action.name}</span>
+				<span slot="info">
+				{action.desc}
+				</span>
+	</PropertyBlock>
+	{/each}
+{/if}
+
+
 </StatBlock>
 
 {:catch error}
