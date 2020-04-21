@@ -24,8 +24,8 @@
     /* Leaving room for the two bars to protrude outwards */
     margin-left: 2px;
     margin-right: 2px;
-}
-:global(h3) {
+    
+    :global(h3) {
     border-bottom: 1px solid #7A200D;
     color: #7A200D;
     font-size: 21px;
@@ -38,12 +38,15 @@
     break-inside: avoid-column;
     break-after: avoid-column;
     }
- :global(p){
-  margin-top: 0.3em;
-  margin-bottom: 0.9em;
-  line-height: 1.5;
- }
-    *:last-child {
-     margin-bottom:0;
+    :global(p){
+    margin-top: 0.3em;
+    margin-bottom: 0.9em;
+    line-height: 1.5;
     }
+
+    *:last-child {
+        margin-bottom:0;
+    }
+}
+
 </style>

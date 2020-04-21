@@ -15,6 +15,7 @@
     margin: 0;
     display: inline;
     font-weight: bold;
+    text-transform: capitalize;
   }
 
   p:first-of-type {
@@ -23,6 +24,7 @@
   }
 
   p {
+    text-transform: capitalize;
     text-indent: 1em;
     margin: 0;
   }
